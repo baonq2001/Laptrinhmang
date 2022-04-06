@@ -1,0 +1,112 @@
+import src.BufferedReader;
+import src.BufferedWriter;
+import src.Exception;
+import src.InputStream;
+import src.InputStreamReader;
+import src.OutputStream;
+import src.OutputStreamWriter;
+import src.Override;
+import src.Socket;
+import src.String;
+
+public class TH_Server {
+
+	Socket socketClient;
+	int id = -1;
+	
+
+	public DS_Server (Socket socketClient, int id) {
+		super();
+		this.socketClient = socketClient;
+		this.id = id;
+		
+	}
+
+
+
+	@Override
+	public void run() {
+		try {
+			System.out.print(socketClient.getInetAddress().getHostAddress());
+			System.out.print(id);
+			OutputStream osToClient = socketClient.getOutputStream();	
+			OutputStreamWriter write2Client = new OutputStreamWriter(osToClient);
+			BufferedWriter buffW = new BufferedWriter(write2Client);
+		
+			InputStream in = socketClient.getInputStream();
+			InputStreamReader inReader = new InputStreamReader(in);
+			BufferedReader buffR = new BufferedReader(inReader);
+			void GuiFile(String tenFile) throws IOException{
+				
+				FileReader fr = new FileReader(tenFile);
+				BufferedReader buffRead = new BufferedReader(fr);
+				OutputStream osToClient = socketClient.getOutputStream();	
+				OutputStreamWriter write2Client = new OutputStreamWriter(osToClient);
+				BufferedWriter buffW = new BufferedWriter(write2Client);
+				String line;
+				while((line = buffRead.readLine()) != null) {
+					buffW.write(line);
+					buffW.flush();
+				}
+				fr.close();
+				
+			}
+				
+			while(true){
+				String chuoiNhan=buffR.readLine();
+				System.out.print(chuoiNhan);
+				
+				if(chuoiNhan.equals("0")) {
+					String chuoiGui= "zero";
+					buffW.write(chuoiGui+"");
+					buffW.flush();
+				}else if(chuoiNhan.equals("1")) {
+					String chuoiGui= "one";
+					buffW.write(chuoiGui+"\n");
+					buffW.flush();
+				}else if(chuoiNhan.equals("2")) {
+					String chuoiGui= "two";
+					buffW.write(chuoiGui+"\n");
+					buffW.flush();
+				}else if(chuoiNhan.equals("3")) {
+					String chuoiGui= "three";
+					buffW.write(chuoiGui+"\n");
+					buffW.flush();
+				}else if(chuoiNhan.equals("4")) {
+					String chuoiGui= "four";
+					buffW.write(chuoiGui+"\n");
+					buffW.flush();
+				}else if(chuoiNhan.equals("5")) {
+					String chuoiGui= "five";
+					buffW.write(chuoiGui+"\n");
+					buffW.flush();
+				}else if(chuoiNhan.equals("6")) {
+					String chuoiGui= "six";
+					buffW.write(chuoiGui+"\n");
+					buffW.flush();
+				}else if(chuoiNhan.equals("7")) {
+					String chuoiGui= "seven";
+					buffW.write(chuoiGui+"\n");
+					buffW.flush();
+				}else if(chuoiNhan.equals("8")) {
+					String chuoiGui= "eight";
+					buffW.write(chuoiGui+"\n");
+					buffW.flush();
+				}else if(chuoiNhan.equals("9")) {
+					String chuoiGui= "night";
+					buffW.write(chuoiGui+"\n");
+					buffW.flush();
+				}else if(chuoiNhan.equals("10")) {
+					break;
+				}
+				
+			}
+			socketClient.close();
+				}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+
+}
